@@ -7,6 +7,9 @@ import org.junit.jupiter.api.Test;
 import org.openqa.selenium.Keys;
 
 import java.time.Duration;
+import java.time.LocalDate;
+import java.time.MonthDay;
+import java.time.format.DateTimeFormatter;
 
 import static com.codeborne.selenide.Selectors.*;
 import static com.codeborne.selenide.Selenide.*;
@@ -15,6 +18,11 @@ public class CardDeliveryTest {
 
     @Test
     void shouldDeliveryCheckBox() {
+        LocalDate date = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d MM yyyy");
+        date = date.plusDays(3);
+        String text = date.format(formatter);
+
         Configuration.holdBrowserOpen = true;
         open("http://localhost:9999");
         $x("//*[@placeholder=\"Город\"]").setValue("Рязань");
@@ -28,6 +36,11 @@ public class CardDeliveryTest {
 
     @Test
     void shouldAppearMessageIfUnavailableCity() {
+        LocalDate date = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d MM yyyy");
+        date = date.plusDays(3);
+        String text = date.format(formatter);
+
         Configuration.holdBrowserOpen = true;
         open("http://localhost:9999");
         $x("//*[@placeholder=\"Город\"]").setValue("Луховицы");
@@ -42,11 +55,16 @@ public class CardDeliveryTest {
 
     @Test
     void shouldAppearMessageIfUnavailableDate() {
+        LocalDate date = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d MM yyyy");
+        date = date.plusDays(2);
+        String text = date.format(formatter);
+
         Configuration.holdBrowserOpen = true;
         open("http://localhost:9999");
         $x("//*[@placeholder=\"Город\"]").setValue("Москва");
         $x("//*[@placeholder=\"Дата встречи\"]").doubleClick().sendKeys(Keys.BACK_SPACE);
-        $x("//*[@placeholder=\"Дата встречи\"]").setValue("10022022");
+        $x("//*[@placeholder=\"Дата встречи\"]").setValue(text);
         $x("//*[@name=\"name\"]").setValue("Орлов Олег");
         $x("//*[@name=\"phone\"]").setValue("+79168001213");
         $x("//*[@class=\"checkbox__box\"]").click();
@@ -57,6 +75,11 @@ public class CardDeliveryTest {
 
     @Test
     void shouldAppearMessageIfUnavailableName() {
+        LocalDate date = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d MM yyyy");
+        date = date.plusDays(3);
+        String text = date.format(formatter);
+
         Configuration.holdBrowserOpen = true;
         open("http://localhost:9999");
         $x("//*[@placeholder=\"Город\"]").setValue("Казань");
@@ -72,6 +95,11 @@ public class CardDeliveryTest {
     @Test
     void shouldAppearMessageIfUnavailablePhone() {
         Configuration.holdBrowserOpen = true;
+        LocalDate date = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d MM yyyy");
+        date = date.plusDays(3);
+        String text = date.format(formatter);
+
         open("http://localhost:9999");
         $x("//*[@placeholder=\"Город\"]").setValue("Владимир");
         $x("//*[@placeholder=\"Дата встречи\"]").setValue("12052022");
@@ -85,6 +113,11 @@ public class CardDeliveryTest {
 
     @Test
     void shouldAppearMessageIfCheckboxIsNotMarked() {
+        LocalDate date = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d MM yyyy");
+        date = date.plusDays(3);
+        String text = date.format(formatter);
+
         Configuration.holdBrowserOpen = true;
         open("http://localhost:9999");
         $x("//*[@placeholder=\"Город\"]").setValue("Астрахань");
