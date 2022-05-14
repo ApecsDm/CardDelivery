@@ -15,18 +15,20 @@ import static com.codeborne.selenide.Selectors.*;
 import static com.codeborne.selenide.Selenide.*;
 
 public class CardDeliveryTest {
+    public String generateDate(int days) {
+        return LocalDate.now().plusDays(days).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+    }
+
 
     @Test
     void shouldDeliveryCheckBox() {
-        LocalDate date = LocalDate.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d MM yyyy");
-        date = date.plusDays(3);
-        String text = date.format(formatter);
+        String planningDate = generateDate(4);
 
         Configuration.holdBrowserOpen = true;
         open("http://localhost:9999");
         $x("//*[@placeholder=\"Город\"]").setValue("Рязань");
-        $x("//*[@placeholder=\"Дата встречи\"]").setValue("14052022");
+        $("[data-test-id='date'] input").sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME), Keys.BACK_SPACE);
+        $("[data-test-id='date'] input").setValue(planningDate);
         $x("//*[@name=\"name\"]").setValue("Орлов Олег");
         $x("//*[@name=\"phone\"]").setValue("+79992840055");
         $x("//*[@class=\"checkbox__box\"]").click();
@@ -36,15 +38,13 @@ public class CardDeliveryTest {
 
     @Test
     void shouldAppearMessageIfUnavailableCity() {
-        LocalDate date = LocalDate.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d MM yyyy");
-        date = date.plusDays(3);
-        String text = date.format(formatter);
+        String planningDate = generateDate(4);
 
         Configuration.holdBrowserOpen = true;
         open("http://localhost:9999");
         $x("//*[@placeholder=\"Город\"]").setValue("Луховицы");
-        $x("//*[@placeholder=\"Дата встречи\"]").setValue("14052022");
+        $("[data-test-id='date'] input").sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME), Keys.BACK_SPACE);
+        $("[data-test-id='date'] input").setValue(planningDate);
         $x("//*[@name=\"name\"]").setValue("Орлов Олег");
         $x("//*[@name=\"phone\"]").setValue("+79992840055");
         $x("//*[@class=\"checkbox__box\"]").click();
@@ -55,16 +55,13 @@ public class CardDeliveryTest {
 
     @Test
     void shouldAppearMessageIfUnavailableDate() {
-        LocalDate date = LocalDate.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d MM yyyy");
-        date = date.plusDays(2);
-        String text = date.format(formatter);
+        String planningDate = generateDate(2);
 
         Configuration.holdBrowserOpen = true;
         open("http://localhost:9999");
         $x("//*[@placeholder=\"Город\"]").setValue("Москва");
-        $x("//*[@placeholder=\"Дата встречи\"]").doubleClick().sendKeys(Keys.BACK_SPACE);
-        $x("//*[@placeholder=\"Дата встречи\"]").setValue(text);
+        $("[data-test-id='date'] input").sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME), Keys.BACK_SPACE);
+        $("[data-test-id='date'] input").setValue(planningDate);
         $x("//*[@name=\"name\"]").setValue("Орлов Олег");
         $x("//*[@name=\"phone\"]").setValue("+79168001213");
         $x("//*[@class=\"checkbox__box\"]").click();
@@ -75,15 +72,13 @@ public class CardDeliveryTest {
 
     @Test
     void shouldAppearMessageIfUnavailableName() {
-        LocalDate date = LocalDate.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d MM yyyy");
-        date = date.plusDays(3);
-        String text = date.format(formatter);
+        String planningDate = generateDate(4);
 
         Configuration.holdBrowserOpen = true;
         open("http://localhost:9999");
         $x("//*[@placeholder=\"Город\"]").setValue("Казань");
-        $x("//*[@placeholder=\"Дата встречи\"]").setValue("14052022");
+        $("[data-test-id='date'] input").sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME), Keys.BACK_SPACE);
+        $("[data-test-id='date'] input").setValue(planningDate);
         $x("//*[@name=\"name\"]").setValue("Orlov Oleg");
         $x("//*[@name=\"phone\"]").setValue("+79032844872");
         $x("//*[@class=\"checkbox__box\"]").click();
@@ -94,15 +89,12 @@ public class CardDeliveryTest {
 
     @Test
     void shouldAppearMessageIfUnavailablePhone() {
-        Configuration.holdBrowserOpen = true;
-        LocalDate date = LocalDate.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d MM yyyy");
-        date = date.plusDays(3);
-        String text = date.format(formatter);
+        String planningDate = generateDate(4);
 
         open("http://localhost:9999");
         $x("//*[@placeholder=\"Город\"]").setValue("Владимир");
-        $x("//*[@placeholder=\"Дата встречи\"]").setValue("12052022");
+        $("[data-test-id='date'] input").sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME), Keys.BACK_SPACE);
+        $("[data-test-id='date'] input").setValue(planningDate);
         $x("//*[@name=\"name\"]").setValue("Орлова Ольга");
         $x("//*[@name=\"phone\"]").setValue("+790328448722");
         $x("//*[@class=\"checkbox__box\"]").click();
@@ -113,15 +105,13 @@ public class CardDeliveryTest {
 
     @Test
     void shouldAppearMessageIfCheckboxIsNotMarked() {
-        LocalDate date = LocalDate.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d MM yyyy");
-        date = date.plusDays(3);
-        String text = date.format(formatter);
+        String planningDate = generateDate(4);
 
         Configuration.holdBrowserOpen = true;
         open("http://localhost:9999");
         $x("//*[@placeholder=\"Город\"]").setValue("Астрахань");
-        $x("//*[@placeholder=\"Дата встречи\"]").setValue("15052022");
+        $("[data-test-id='date'] input").sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME), Keys.BACK_SPACE);
+        $("[data-test-id='date'] input").setValue(planningDate);
         $x("//*[@name=\"name\"]").setValue("Боброва-Филатова Анна");
         $x("//*[@name=\"phone\"]").setValue("+79858754011");
         $x("//*[@class=\"button__text\"]").click();
