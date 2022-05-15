@@ -34,7 +34,7 @@ public class CardDeliveryTest {
         $x("//*[@name=\"phone\"]").setValue("+79992840055");
         $x("//*[@class=\"checkbox__box\"]").click();
         $x("//*[@class=\"button__text\"]").click();
-        $$("[class=\"notification__content\"]").find(Condition.exactText("Встреча успешно забронирована на "+ planningDate)).should(Condition.visible,Duration.ofSeconds(15));
+        $(".notification__content").shouldHave(Condition.text("Встреча успешно забронирована на " + planningDate), Duration.ofSeconds(15));
     }
 
     @Test
