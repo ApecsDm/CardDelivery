@@ -3,6 +3,7 @@ package ru.netology.web;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.SelenideElement;
+import com.codeborne.selenide.conditions.ExactText;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.Keys;
 
@@ -33,7 +34,7 @@ public class CardDeliveryTest {
         $x("//*[@name=\"phone\"]").setValue("+79992840055");
         $x("//*[@class=\"checkbox__box\"]").click();
         $x("//*[@class=\"button__text\"]").click();
-        $(withText("Встреча успешно забронирована")).should(Condition.visible, Duration.ofSeconds(16));
+        $$("[class=\"notification__content\"]").find(Condition.exactText("Встреча успешно забронирована на "+ planningDate)).should(Condition.visible,Duration.ofSeconds(15));
     }
 
     @Test
